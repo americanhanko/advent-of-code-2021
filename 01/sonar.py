@@ -1,6 +1,6 @@
 def windows(data):
     count = len(data)
-    windows = []
+    winds = []
     start = 0
     end = 3
 
@@ -8,11 +8,11 @@ def windows(data):
         window = sum(data[start:end])
         start += 1
         end += 1
-        windows.append(window)
+        winds.append(window)
         if end > count:
             break
 
-    return windows
+    return winds
 
 
 def sweep(data):
@@ -28,8 +28,8 @@ def sweep(data):
 if __name__ == "__main__":
     with open("input") as fp:
         content = fp.readlines()
-        data = [int(i) for i in content.strip()]
+        measurements = [int(i) for i in content]
 
-    windows = windows(data)
+    windows = windows(measurements)
     result = sweep(windows)
     print(result)
