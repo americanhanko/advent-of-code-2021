@@ -1,4 +1,8 @@
-def position(data, use_aim: False):
+from typing import List
+from typing import Tuple
+
+
+def position(data: List[Tuple[str, ...]], use_aim: bool) -> int:
     horizontal = 0
     depth = 0
     aim = 0
@@ -31,4 +35,5 @@ if __name__ == "__main__":
         lines = fp.readlines()
         instructions = [tuple(line.split()) for line in lines]
 
-    print(position(instructions, use_aim=True))
+    result = position(instructions, use_aim=True)
+    print(result)

@@ -1,4 +1,7 @@
-def windows(data):
+from typing import List
+
+
+def windows(data: List[int]) -> List[int]:
     count = len(data)
     winds = []
     start = 0
@@ -15,7 +18,7 @@ def windows(data):
     return winds
 
 
-def sweep(data):
+def sweep(data: List[int]) -> int:
     count = len(data)
     increases = 0
 
