@@ -2,20 +2,25 @@ import typing
 from typing import List
 
 
-def bingo(selections, board_data):
+def bingo(selections, board_data, let_squid_win: bool):
+    num_winners = 0
     boards = [BingoBoard(data) for data in board_data]
     for selection in selections:
         for board in boards:
             board.play_round(selection)
-            if board.check_for_winner():
-                return board.winning_result(selection)
+            if board.check_for_winner() and not board.i_won:
+                board.i_won = True
+                num_winners += 1
+                if not let_squid_win:
+                    return board.winning_result(selection)
+                if let_squid_win and (len(boards) - num_winners) == 0:
+                    return board.winning_result(selection)
 
 
 class BingoBoard:
     def __init__(self, data):
         self.data = data
-        self.width = len(data)
-        self.height = len(data[0])
+        self.i_won = False
         self.rows = data
         self.columns = self._create_columns(data)
 
@@ -65,5 +70,5 @@ if __name__ == "__main__":
 
         return all_boards
 
-    result = bingo(selections(), all_boards())
+    result = bingo(selections(), all_boards(), let_squid_win=True)
     print(result)

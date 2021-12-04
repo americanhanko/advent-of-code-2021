@@ -6,7 +6,11 @@ from squid import BingoBoard
 
 
 def test_bingo_winner(selections, all_boards):
-    assert squid.bingo(selections, all_boards) == 4512
+    assert squid.bingo(selections, all_boards, let_squid_win=False) == 4512
+
+
+def test_squid_bingo_winner(selections, all_boards):
+    assert squid.bingo(selections, all_boards, let_squid_win=True) == 1924
 
 
 def test_creating_bingo_board(all_boards):
