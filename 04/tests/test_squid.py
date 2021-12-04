@@ -23,8 +23,8 @@ puzzle_input = """7,4,9,5,11,17,23,2,0,14,21,24,10,16,13,6,15,25,12,22,18,20,8,1
 
 
 def test_bingo_first_winner():
-    assert squid.bingo(puzzle_input, let_squid_win=False) == 4512
+    assert squid.bingo(puzzle_input, last_winner=False) == 4512
 
 
 def test_bingo_last_winner():
-    assert squid.bingo(puzzle_input, let_squid_win=True) == 1924
+    assert squid.bingo(puzzle_input, last_winner=True) == 1924
