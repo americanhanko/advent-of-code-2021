@@ -1,10 +1,12 @@
-import typing
-from typing import List
-
-
-def bingo(selections, board_data, let_squid_win: bool):
+def bingo(raw_data, let_squid_win: bool):
+    content = raw_data.strip().split("\n\n")
     num_winners = 0
-    boards = [BingoBoard(data) for data in board_data]
+    selections = [i for i in content[0].split(",")]
+    raw_boards = [
+        [row.split() for row in board]
+        for board in [board.split("\n") for board in content[1:]]
+    ]
+    boards = [BingoBoard(data) for data in raw_boards]
     for selection in selections:
         for board in boards:
             board.play_round(selection)
@@ -54,21 +56,7 @@ class BingoBoard:
 
 if __name__ == "__main__":
     with open("input") as fp:
-        content = fp.read().strip().split("\n\n")
+        puzzle_input = fp.read()
 
-    def selections():
-        return [i for i in content[0].split(",")]
-
-    def all_boards():
-        board_data = content[1:]
-        boards = [board.split("\n") for board in board_data]
-        all_boards = []
-
-        for board in boards:
-            b = [row.split() for row in board]
-            all_boards.append(b)
-
-        return all_boards
-
-    result = bingo(selections(), all_boards(), let_squid_win=True)
+    result = bingo(puzzle_input, let_squid_win=True)
     print(result)
