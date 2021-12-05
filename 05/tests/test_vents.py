@@ -14,4 +14,4 @@ data = """0,9 -> 5,9
 
 
 def test_number_of_danger_zones():
-    assert vents.danger_zones() == 5
+    assert vents.danger_zones(data) == 5
