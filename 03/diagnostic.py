@@ -12,3 +12,11 @@ class BinaryDiagnostic:
     def _common_bit_as_int(self, func):
         as_bin = "".join([func(set(col), key=col.count) for col in self._transpose()])
         return int(as_bin, base=2)
+
+
+if __name__ == "__main__":
+    with open("input") as fp:
+        content = fp.read()
+
+    diag = BinaryDiagnostic(content)
+    print(diag.power_consumption)

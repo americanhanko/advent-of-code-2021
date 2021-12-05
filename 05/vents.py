@@ -59,9 +59,9 @@ def get_points(coords):
 
 def print_board(all_coords):
     for x in range(0, 10):
-        print('')
+        print("")
         for y in range(0, 10):
             if (x, y) in all_coords:
-                print('1', end='')
+                print("1", end="")
             else:
-                print('.', end='')
+                print(".", end="")
