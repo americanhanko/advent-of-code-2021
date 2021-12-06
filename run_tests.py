@@ -6,9 +6,7 @@ import pytest
 
 
 dirs = [os.path.abspath(os.path.dirname(path)) for path in sorted(glob.glob("*/tests"))]
-scripts = [
-    os.path.abspath(os.path.dirname(path)) for path in sorted(glob.glob("*/*.py"))
-]
+scripts = [os.path.abspath(os.path.dirname(path)) for path in sorted(glob.glob("*/*.py"))]
 
 sys.path += dirs
 

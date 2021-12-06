@@ -6,8 +6,7 @@ def bingo(raw_data: str, last_winner: bool = False) -> int:
     num_winners = 0
     numbers_called = [i for i in content[0].split(",")]
     board_data = [
-        [row.split() for row in board]
-        for board in [board.split("\n") for board in content[1:]]
+        [row.split() for row in board] for board in [board.split("\n") for board in content[1:]]
     ]
     boards = [BingoBoard(data) for data in board_data]
     for number in numbers_called:

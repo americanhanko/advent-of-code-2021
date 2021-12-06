@@ -1,6 +1,6 @@
 import itertools
-from typing import Tuple
 from typing import List
+from typing import Tuple
 
 
 class Line:
@@ -24,8 +24,7 @@ def danger_zones(data):
     # coords = [[point.split(",") for point in line.split(" -> ")] for line in lines]
 
     points = [
-        [tuple(int(i) for i in coord.split(",")) for coord in line.split(" -> ")]
-        for line in lines
+        [tuple(int(i) for i in coord.split(",")) for coord in line.split(" -> ")] for line in lines
     ]
 
     all_coords = []
