@@ -7,6 +7,7 @@ if [[ -z "${day}" ]]; then
     exit 0
 fi
 
-puzzle_input=$(curl --silent --cookie cookies.txt https://adventofcode.com/2021/day/"${day}"/input)
+puzzle_input=$(curl -fsSL --cookie cookies.txt https://adventofcode.com/2021/day/"${day}"/input)
 
-echo "${puzzle_input}"
+printf -v day_dir "%02d\n" "${day}"
+echo "${puzzle_input}" > "${day_dir}"/input

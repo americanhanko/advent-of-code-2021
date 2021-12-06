@@ -8,9 +8,9 @@ def to_int(bin_str: str) -> int:
 def comm(func, col):
     if len(col) == 2:
         if func == max:
-            return '1'
+            return "1"
         else:
-            return '0'
+            return "0"
     return func(set(col), key=col.count)
 
 

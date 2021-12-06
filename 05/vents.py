@@ -1,4 +1,22 @@
 import itertools
+from typing import Tuple
+from typing import List
+
+
+class Line:
+    """Represents a two-dimensional line"""
+
+    def __init__(self, coords: List[Tuple[int, int], Tuple[int, int]]):
+        self.start = None
+        self.end = None
+        self.horizontal = False
+        self.vertical = False
+
+    def is_vertical(self, coords):
+        return coords[0][0] == coords[1][0]
+
+    def is_horizontal(coords):
+        return coords[0][1] == coords[1][1]
 
 
 def danger_zones(data):
