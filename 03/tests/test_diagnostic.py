@@ -18,3 +18,8 @@ data = """00100
 def test_power_consumption():
     diag = BinaryDiagnostic(data)
     assert diag.power_consumption == 198
+
+
+def test_life_support_rating():
+    diag = BinaryDiagnostic(data)
+    assert diag.life_support_rating == 230
