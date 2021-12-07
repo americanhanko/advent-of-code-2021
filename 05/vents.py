@@ -25,19 +25,10 @@ class Line:
         return self.is_vertical or self.is_horizontal
 
     def points(self) -> List[Tuple[int, int]]:
-        if self.is_vertical:
-            i, j = 1, 0
-        else:
-            i, j = 0, 1
-
+        i, j = (1, 0) if self.is_vertical else (0, 1)
         start, end = sorted(self.flipped[i])
         axis = set(self.flipped[j]).pop()
-        rng = range(start, end + 1)
-
-        if self.is_vertical:
-            return [(axis, i) for i in rng]
-        else:
-            return [(i, axis) for i in rng]
+        return [(axis, p) if self.is_vertical else (p, axis) for p in range(start, end + 1)]
 
     def _check_direction(self, i) -> bool:
         return len(set(self.flipped[i])) == 1
@@ -45,7 +36,6 @@ class Line:
 
 def all_coordinates(pairs):
     coordinates = []
-
     for pair in pairs:
         line = Line(pair)
         if line.is_straight:
@@ -57,10 +47,9 @@ def all_coordinates(pairs):
 def danger_zones(data):
     lines = data.strip().split("\n")
     pairs = [[tuple(int(i) for i in p.split(",")) for p in ln.split(" -> ")] for ln in lines]
-
     coordinates = all_coordinates(pairs)
-    count = Counter(coordinates)
-    result = Counter(count.values())
+    overlaps = Counter(coordinates).values()
+    result = Counter(overlaps)
     result.pop(1)
     return sum(result.values())
 
