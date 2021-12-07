@@ -1,18 +1,22 @@
-def growth_rate(data, days=0) -> int:
-    init_fish = data.split(",")
+from typing import List
 
+
+def growth_rate(data: List[int], days=0) -> int:
     days = days
-    fish = init_fish
+    fish = data
 
-    while days:
+    print(days)
+    while days > 0:
+        fish = [f - 1 for f in fish]
         days -= 1
 
-    return len(fish)
+    return growth_rate(fish, days)
 
 
 if __name__ == "__main__":
     with open("input") as fp:
         content = fp.read().strip()
 
-    result = growth_rate(content)
+    init_fish = [int(i) for i in content.split(",")]
+    result = growth_rate(init_fish)
     print(result)
