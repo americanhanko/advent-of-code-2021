@@ -28,5 +28,27 @@ def test_creating_vertical_line_from_two_points():
     assert line.points() == [(9, 0), (9, 1), (9, 2), (9, 3), (9, 4), (9, 5)]
 
 
+def test_creating_decreasing_diagonal_line():
+    points = [(1, 1), (3, 3)]
+    line = Line(points)
+
+    answer = [(1, 1), (2, 2), (3, 3)]
+
+    assert line.points() == answer
+
+
+def test_creating_increasing_diagonal_line():
+    points = [(9, 7), (7, 9)]
+    line = Line(points)
+
+    answer = [(9, 7), (8, 8), (7, 9)]
+
+    assert line.points() == answer
+
+
 def test_number_of_danger_zones():
     assert vents.danger_zones(data) == 5
+
+
+def test_number_of_danger_zones_with_diags():
+    assert vents.danger_zones(data, diagonals=True) == 12
