@@ -1,5 +1,5 @@
-import pytest
 import vents
+from vents import Line
 
 data = """0,9 -> 5,9
 8,0 -> 0,8
@@ -14,6 +14,19 @@ data = """0,9 -> 5,9
 """
 
 
-@pytest.mark.skip("I am not a smart man")
+def test_creating_horizontal_line_from_two_points():
+    points = [(0, 9), (5, 9)]
+    line = Line(points)
+
+    assert line.points() == [(0, 9), (1, 9), (2, 9), (3, 9), (4, 9), (5, 9)]
+
+
+def test_creating_vertical_line_from_two_points():
+    points = [(9, 0), (9, 5)]
+    line = Line(points)
+
+    assert line.points() == [(9, 0), (9, 1), (9, 2), (9, 3), (9, 4), (9, 5)]
+
+
 def test_number_of_danger_zones():
     assert vents.danger_zones(data) == 5
