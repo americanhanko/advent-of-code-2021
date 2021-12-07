@@ -1,3 +1,4 @@
+from collections import Counter
 from typing import List
 from typing import Tuple
 
@@ -19,9 +20,6 @@ class Line:
     def is_horizontal(self) -> bool:
         return self._check_direction(1)
 
-    def _check_direction(self, i) -> bool:
-        return len(set(self.flipped[i])) == 1
-
     @property
     def is_straight(self) -> bool:
         return self.is_vertical or self.is_horizontal
@@ -41,11 +39,11 @@ class Line:
         else:
             return [(i, axis) for i in rng]
 
+    def _check_direction(self, i) -> bool:
+        return len(set(self.flipped[i])) == 1
 
-def danger_zones(data):
-    lines = data.split("\n")
-    pairs = [[tuple(int(i) for i in p.split(",")) for p in ln.split(" -> ")] for ln in lines]
 
+def all_coordinates(pairs):
     coordinates = []
 
     for pair in pairs:
@@ -53,12 +51,18 @@ def danger_zones(data):
         if line.is_straight:
             coordinates += line.points()
 
-    overlaps = []
-    for coord in coordinates:
-        if coordinates.count(coord) > 1:
-            overlaps.append(coord)
+    return coordinates
 
-    return len(set(overlaps))
+
+def danger_zones(data):
+    lines = data.strip().split("\n")
+    pairs = [[tuple(int(i) for i in p.split(",")) for p in ln.split(" -> ")] for ln in lines]
+
+    coordinates = all_coordinates(pairs)
+    count = Counter(coordinates)
+    result = Counter(count.values())
+    result.pop(1)
+    return sum(result.values())
 
 
 if __name__ == "__main__":
