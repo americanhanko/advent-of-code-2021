@@ -1,4 +1,3 @@
-import itertools
 from typing import List
 from typing import Tuple
 
@@ -44,7 +43,7 @@ class Line:
 
 
 def danger_zones(data):
-    lines = data.strip().split("\n")
+    lines = data.split("\n")
     pairs = [[tuple(int(i) for i in p.split(",")) for p in ln.split(" -> ")] for ln in lines]
 
     coordinates = []
@@ -52,15 +51,18 @@ def danger_zones(data):
     for pair in pairs:
         line = Line(pair)
         if line.is_straight:
-            coordinates.append(line.points())
-
-    coordinates = list(itertools.chain.from_iterable(coordinates))
+            coordinates += line.points()
 
     overlaps = []
-
     for coord in coordinates:
         if coordinates.count(coord) > 1:
             overlaps.append(coord)
 
-    print(overlaps)
     return len(set(overlaps))
+
+
+if __name__ == "__main__":
+    with open("input") as fp:
+        content = fp.read().strip()
+
+    print(danger_zones(content))
