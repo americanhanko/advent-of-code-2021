@@ -80,5 +80,6 @@ if __name__ == "__main__":
     with open("input") as fp:
         content = fp.read().strip()
 
-    print(danger_zones(content))
-    print(danger_zones(content, diagonals=True))
+    pt_one = danger_zones(content)
+    pt_two = danger_zones(content, diagonals=True)
+    print(pt_one, pt_two)

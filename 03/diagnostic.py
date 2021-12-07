@@ -75,5 +75,4 @@ if __name__ == "__main__":
         content = fp.read()
 
     diag = BinaryDiagnostic(content)
-    print(diag.power_consumption)
-    print(diag.life_support_rating)
+    print(diag.power_consumption, diag.life_support_rating)
