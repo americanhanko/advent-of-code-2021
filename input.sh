@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 day="${1}"
+cookie_file=${2}
 
 if [[ -z "${day}" ]]; then
     echo "Missing day number"
@@ -8,4 +9,4 @@ if [[ -z "${day}" ]]; then
 fi
 
 printf -v day_dir "%02d" "${day}"
-curl -fsSL --cookie cookies.txt https://adventofcode.com/2021/day/"${day}"/input --output "${day_dir}"/input
+curl -fsSL --cookie ${cookie_file} https://adventofcode.com/2021/day/"${day}"/input --output "${day_dir}"/input

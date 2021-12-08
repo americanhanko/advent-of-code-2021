@@ -14,3 +14,18 @@ gcafb gcf dcaebfg ecagb gf abcdeg gaef cafbge fdbac fegbdc | fgae cfgab fg bagce
 
 def test_decoding_displays():
     assert segment.segment(data) == 26
+
+
+def test_decoding_displays_two():
+    assert segment.mapping(data) == 61229
+
+
+def test_mapping():
+    data = "acedgfb cdfbe gcdfa fbcad dab cefabd cdfgeb eafb cagedb ab"
+    assert segment.create_mapping(data) == {"a": "d", "b": "e", "c": "a", "d": "f", "e": "g", "f": "b", "g": "c"}
+
+
+def test_getting_digits():
+    mapping = {"a": "d", "b": "e", "c": "a", "d": "f", "e": "g", "f": "b", "g": "c"}
+    second_part = "cdfeb fcadb cdfeb cdbaf"
+    assert segment.get_digits(mapping, second_part) == 5353
