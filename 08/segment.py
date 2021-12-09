@@ -1,4 +1,5 @@
 from collections import Counter
+from typing import Dict
 
 MASTER_KEY = {
     "abcefg": "0",
@@ -14,7 +15,7 @@ MASTER_KEY = {
 }
 
 
-def segment(data):
+def segment(data: str) -> int:
     second_part = [line.split("|")[1] for line in data.strip().split("\n")]
 
     digit_occurrences = 0
@@ -27,69 +28,70 @@ def segment(data):
     return digit_occurrences
 
 
-def create_mapping(display):
-    letters_in = dict()
+def create_mapping(display: str) -> Dict:
+    digit_map = dict()
     digits = display.split()
-    c = Counter(list(display))
-    m = dict()
+    digit_count = Counter(list(display))
+    wire_map = dict()
+
+    alpha = list("abcdefg")
 
     for digit in digits:
         if len(digit) == 2:
-            letters_in["1"] = digit
+            digit_map["1"] = digit
         if len(digit) == 3:
-            letters_in["7"] = digit  # 'acf'
+            digit_map["7"] = digit
         if len(digit) == 4:
-            letters_in["4"] = digit
-        if len(digit) == 7:
-            letters_in["8"] = digit
+            digit_map["4"] = digit
 
-    ac = letters_in["1"] + letters_in["7"]
-    count = Counter(ac)
-    m["a"] = count.most_common()[-1][0]
+    one_seven_count = Counter(digit_map["1"] + digit_map["7"])
 
-    for letter in list("abcdefg"):
-        if c[letter] == 8 and letter != m["a"]:
-            m["c"] = letter
-        if c[letter] == 4:
-            m["e"] = letter
-        if c[letter] == 9:
-            m["f"] = letter
-        if c[letter] == 6:
-            m["b"] = letter
-        if c[letter] == 7:
-            pass
+    for letter in one_seven_count.most_common():
+        if letter[1] == 1:
+            wire_map["a"] = letter[0]
 
-    for letter in letters_in["4"]:
-        if letter not in m.values():
-            m["d"] = letter
+    for letter in alpha:
+        if digit_count[letter] == 8 and letter != wire_map["a"]:
+            wire_map["c"] = letter
+        if digit_count[letter] == 4:
+            wire_map["e"] = letter
+        if digit_count[letter] == 9:
+            wire_map["f"] = letter
+        if digit_count[letter] == 6:
+            wire_map["b"] = letter
 
-    for letter in list("abcdefg"):
-        if letter not in m.values():
-            m["g"] = letter
+    remaining = "".join([letter if letter not in wire_map.values() else "" for letter in alpha])
 
-    return m
+    for letter in remaining:
+        if letter in digit_map["4"]:
+            wire_map["d"] = letter
+        else:
+            wire_map["g"] = letter
+
+    return wire_map
 
 
-def mapping(data):
+def display_sets_sum(data: str) -> int:
     displays = [line.split("|") for line in data.strip().split("\n")]
 
-    all_displays = []
-
+    display_sets = []
     for display in displays:
-        first_part = display[0]
-        second = display[1]
-        mapping = create_mapping(first_part)
-        all_displays.append(get_digits(mapping, second))
+        wiring = display[0]
+        digits = display[1]
+        mapping = create_mapping(wiring)
+        result = decode(mapping, digits)
+        display_sets.append(result)
 
-    return sum(all_displays)
+    return sum(display_sets)
 
 
-def get_digits(mapping, second):
+def decode(wire_map: Dict, digit_data: str) -> int:
     translated = []
-    reversed = {v: k for k, v in mapping.items()}
-    for letter in list(second):
+    reversed = {v: k for k, v in wire_map.items()}
+    for letter in list(digit_data):
         try:
-            translated.append(reversed[letter])
+            translation = reversed[letter]
+            translated.append(translation)
         except KeyError:
             translated.append(" ")
     translated = "".join(translated).split()
@@ -101,4 +103,4 @@ if __name__ == "__main__":
     with open("input") as fp:
         content = fp.read()
 
-    print(segment(content), mapping(content))
+    print(segment(content), display_sets_sum(content))

@@ -17,7 +17,7 @@ def test_decoding_displays():
 
 
 def test_decoding_displays_two():
-    assert segment.mapping(data) == 61229
+    assert segment.display_sets_sum(data) == 61229
 
 
 def test_mapping():
@@ -28,4 +28,4 @@ def test_mapping():
 def test_getting_digits():
     mapping = {"a": "d", "b": "e", "c": "a", "d": "f", "e": "g", "f": "b", "g": "c"}
     second_part = "cdfeb fcadb cdfeb cdbaf"
-    assert segment.get_digits(mapping, second_part) == 5353
+    assert segment.decode(mapping, second_part) == 5353
